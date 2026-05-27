@@ -1,0 +1,19 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /backend/
+
+    # Keep direct /backend/public/* requests inside the Laravel public directory.
+    RewriteRule ^public/ - [L]
+
+    # Opening /backend should go straight to the Filament admin panel.
+    RewriteRule ^$ public/admin [R=302,L]
+
+    # Allow cleaner shared-hosting URLs like /backend/admin and /backend/api.
+    RewriteRule ^admin/?(.*)$ public/admin/$1 [L]
+    RewriteRule ^api/?(.*)$ public/api/$1 [L]
+
+    # Send everything else through Laravel's public front controller.
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
