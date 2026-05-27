@@ -3,5 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/admin');
+    $basePath = trim(request()->getBaseUrl(), '/');
+
+    return redirect($basePath === '' ? '/admin' : "/{$basePath}/admin");
 });
