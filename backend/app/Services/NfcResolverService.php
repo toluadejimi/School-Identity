@@ -98,7 +98,7 @@ class NfcResolverService
             'session' => $student->session,
             'faculty' => $student->faculty,
             'level' => $student->level,
-            'photo_url' => $student->photo_path ? url('storage/'.$student->photo_path) : null,
+            'photo_url' => $student->photo_url,
             'blood_group' => $student->blood_group,
             'allergies' => $student->allergies,
             'medical_notes' => $student->medical_notes,

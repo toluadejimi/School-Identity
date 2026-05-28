@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Students\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -15,6 +16,7 @@ class StudentsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('photo_path')->label('Photo')->disk('public')->circular(),
                 TextColumn::make('student_number')->searchable()->sortable(),
                 TextColumn::make('full_name')->label('Name')->searchable(['first_name', 'last_name']),
                 TextColumn::make('class_name')->searchable(),

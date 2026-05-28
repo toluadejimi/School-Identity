@@ -40,7 +40,11 @@ class StudentForm
                     'inactive' => 'Inactive',
                     'suspended' => 'Suspended',
                 ])->default('active')->required(),
-                FileUpload::make('photo_path')->image()->directory('students')->visibility('public'),
+                FileUpload::make('photo_path')
+                    ->image()
+                    ->disk('public')
+                    ->directory('students')
+                    ->visibility('public'),
             ])->columns(2),
             Section::make('Medical Information')->schema([
                 TextInput::make('blood_group'),
