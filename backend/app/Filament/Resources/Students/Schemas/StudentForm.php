@@ -9,6 +9,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class StudentForm
 {
@@ -44,7 +45,21 @@ class StudentForm
                     ->image()
                     ->disk('public')
                     ->directory('students')
-                    ->visibility('public'),
+                    ->visibility('public')
+                    ->getUploadedFileUsing(function (string $file): ?array {
+                        $storage = Storage::disk('public');
+
+                        if (! $storage->exists($file)) {
+                            return null;
+                        }
+
+                        return [
+                            'name' => basename($file),
+                            'size' => $storage->size($file),
+                            'type' => $storage->mimeType($file),
+                            'url' => url('api/v1/storage/'.$file),
+                        ];
+                    }),
             ])->columns(2),
             Section::make('Medical Information')->schema([
                 TextInput::make('blood_group'),

@@ -16,7 +16,7 @@ class StudentsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('photo_path')->label('Photo')->disk('public')->circular(),
+                ImageColumn::make('photo_url')->label('Photo')->circular(),
                 TextColumn::make('student_number')->searchable()->sortable(),
                 TextColumn::make('full_name')->label('Name')->searchable(['first_name', 'last_name']),
                 TextColumn::make('class_name')->searchable(),
