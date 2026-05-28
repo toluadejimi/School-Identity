@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\Storage;
 
 class Student extends Model
 {
@@ -49,7 +48,7 @@ class Student extends Model
 
     public function getPhotoUrlAttribute(): ?string
     {
-        return $this->photo_path ? Storage::disk('public')->url($this->photo_path) : null;
+        return $this->photo_path ? url('api/v1/storage/'.$this->photo_path) : null;
     }
 
     public function nfcCards(): HasMany

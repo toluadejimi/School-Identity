@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\StudentRegistrationController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Middleware\EnsureDeviceHeader;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -18,6 +19,12 @@ Route::prefix('v1')->group(function () {
         'status' => 'ok',
         'service' => 'School Identity Passa API',
     ]));
+
+    Route::get('/storage/{path}', function (string $path) {
+        abort_unless(Storage::disk('public')->exists($path), 404);
+
+        return response()->file(Storage::disk('public')->path($path));
+    })->where('path', '.*');
 
     Route::post('/auth/login', [AuthController::class, 'login']);
 
